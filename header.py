@@ -1,0 +1,18 @@
+':authority': 'shopsearch.taobao.com',
+':method': 'GET',
+':path': '/search?q=%E8%9C%82%E8%9C%9C&imgfile=&js=1&stats_click=search_radio_all%3A1&initiative_id=staobaoz_20211105&ie=utf8',
+':scheme': 'https',
+'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+'accept-encoding': 'gzip, deflate, br',
+'accept-language': 'zh-CN,zh-TW;q=0.9,zh;q=0.8,en-US;q=0.7,en;q=0.6',
+'cache-control': 'max-age=0',
+'cookie': '_m_h5_tk=f5d78fa6a30462f2883635b26c5a22d2_1636085921230; _m_h5_tk_enc=2b9ecc9ec56bbec68ad0057791652201; xlly_s=1; _samesite_flag_=true; cookie2=1ab18b30ce7128b83217f1b2b38774c5; t=648eda3236f62109c39e11ede4e35738; _tb_token_=fe7d66eee395e; enc=Zbvi6ugmdiKvoyw5xcsB7oLDuRi1gZ8j5ALusPqTEyNzoMhe3L2nuKHgdfGR09PBEVdY74wlEqQAzbdDWT%2FGcQ%3D%3D; thw=cn; cna=hcf2GXvFVzUCAXPEwNGWU7eJ; hng=CN%7Czh-CN%7CCNY%7C156; sgcookie=E1005i79f7HcqjMjYLJqzEO%2FylHu09HUmzmNo79%2FN0I%2BhiM4aR9uiqEFK56Rzx9DKFOJLNi%2F75bA%2F6JnfMsc3MDRfuV72itPdNlmkpcYhtlu5uw%3D; unb=1753379637; uc3=nk2=saKJ8XwExpWmiNem&vt3=F8dCujuhkdI757uChy4%3D&id2=UoYbyG8wu19OEw%3D%3D&lg2=V32FPkk%2Fw0dUvg%3D%3D; csg=b379ac20; lgc=%5Cu591C%5Cu5C3D%5Cu5929%5Cu6DAF%5Cu6D77%5Cu89D2; cancelledSubSites=empty; cookie17=UoYbyG8wu19OEw%3D%3D; dnk=%5Cu591C%5Cu5C3D%5Cu5929%5Cu6DAF%5Cu6D77%5Cu89D2; skt=18c6578ddef71c35; existShop=MTYzNjA4MzA3Mg%3D%3D; uc4=id4=0%40UO6SE7dckBAL7BImRcurwvH%2F4W6x&nk4=0%40s8drM%2F7KQ1lNXfmcfL4xwPrSbmSeTgQ%3D; tracknick=%5Cu591C%5Cu5C3D%5Cu5929%5Cu6DAF%5Cu6D77%5Cu89D2; _cc_=URm48syIZQ%3D%3D; _l_g_=Ug%3D%3D; sg=%E8%A7%9273; _nk_=%5Cu591C%5Cu5C3D%5Cu5929%5Cu6DAF%5Cu6D77%5Cu89D2; cookie1=AnJ4UraheKRcij0urQtRO5RJwfg2T%2BDTAwXC9pybipY%3D; mt=ci=3_1; uc1=cookie21=V32FPkk%2FgihF%2FS5nr3O5&existShop=false&cookie14=Uoe3cc6Up5Qmnw%3D%3D&cookie16=WqG3DMC9UpAPBHGz5QBErFxlCA%3D%3D&pas=0&cookie15=V32FPkk%2Fw0dUvg%3D%3D; v=0; JSESSIONID=8E08CA274D3429789E83EC30B361A4EA; isg=BLCw7rCTpTfObnkzyF_QMpwfgX4C-ZRDJs09HqoBVoveZVAPUg_F0wdUuW0FdUwb; l=eBQYLciegKO79HY0BOfZhurza77TdIRAguPzaNbMiOCPO5fpJW2NB6C-vD89CnGVh6okR3-BR3zwBeYBqQd-nxvt5aeSHVkmn; tfstk=c76cBbtbfsRX7WRlO-9fV4KZaWNRZwkw-OW5U9mB9YD50MBPiZcrTLTTqE4Quf1..'
+'sec-ch-ua': '"Google Chrome";v="95", "Chromium";v="95", ";Not A Brand";v="99"',
+'sec-ch-ua-mobile': '?0',
+'sec-ch-ua-platform': 'Windows',
+'sec-fetch-dest': 'document',
+'sec-fetch-mode': 'navigate',
+'sec-fetch-site': 'same-origin',
+'sec-fetch-user': '?1',
+'upgrade-insecure-requests': '1',
+'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36'
