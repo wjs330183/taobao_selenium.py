@@ -79,21 +79,34 @@ def init(qqNumber, qqPassword):
 
 def gotoIndex(realName):
     print('解析页面', realName, '中')
-    pageList = driver.find_elements_by_xpath('//*[@class="adsearch-list"]/nav/ul/li')
-    pageCount = len(pageList)
+    pageList = driver.find_elements_by_xpath('//*[@class="trz-bytag"]/ul/li')
+    pageCount = driver.find_element_by_xpath('//*[@class="trz-bytag"]/ul/li[8]').text
+    pageCounts = pageCount.split('...', 1)
+    pageCount = int(pageCounts[1])
     if (pageCount == 0):
         pageCount = 2
     else:
-        pageCount = pageCount - 2
-    companyList = driver.find_elements_by_xpath('//*[@class="adsearch-list"]/div/div[2]/div/table/tr')
+        pageCount = pageCount + 1
+    companyList = driver.find_elements_by_xpath('//*[@class="bigsearch-list"]/table/tr')
     companyCount = len(companyList)
-    page = 1
+    page = 193
+
+    toPage = driver.find_element_by_xpath('//*[@class="trz-bytag"]/ul/li[9]/input').click()
+    toPage = driver.find_element_by_xpath('//*[@class="trz-bytag"]/ul/li[9]/input')
+    toPage.send_keys('193')
+    time.sleep(2)
+    driver.find_element_by_class_name('input-jump-btn').click()
+    time.sleep(2)
+    print(page)
+
     if pageCount > 0:
         for page in range(1, pageCount):
+            print(page)
+            pageList = driver.find_elements_by_xpath('//*[@class="trz-bytag"]/ul/li')
             company = 1
             for company in range(1, companyCount):
-                companyPath = '/html/body/div[1]/div[2]/div[2]/div[4]/div/div[2]/div/table/tr[' + str(
-                    company) + ']/td[3]/div[1]/a'
+                companyPath = '/html/body/div[1]/div[2]/div[2]/div/div/div[2]/div/div/div[2]/div[2]/table/tr[' + str(
+                    company) + ']/td/div/a'
                 driver.find_element_by_xpath(companyPath).click();
                 time.sleep(2)
                 windows = driver.window_handles  ##在打开新页面的时候使用
@@ -101,32 +114,100 @@ def gotoIndex(realName):
                 driver.switch_to.window(windows[1])  ##进入点击的那一页
                 time.sleep(2)
                 ##点击查看动态按钮
-                driver.find_element_by_xpath('//div[@class="pull-right m-r-sm"]/a').click();
-                time.sleep(2)
-                windows = driver.window_handles  ##在打开新页面的时候使用
-                time.sleep(2)
-                print('windows', windows)
-                driver.switch_to.window(windows[2])  ##进入点击的那一页
-                time.sleep(2)
+                # driver.find_element_by_xpath('//div[@class="pull-right m-r-sm"]/a').click();
+                # time.sleep(2)
+                # windows = driver.window_handles  ##在打开新页面的时候使用
+                # time.sleep(2)
+                # print('windows', windows)
+                # driver.switch_to.window(windows[2])  ##进入点击的那一页
+                # time.sleep(2)
                 ##近一个月的数据
                 # driver.find_element_by_xpath('//*[@id="filterApp"]/div[3]/div[2]/a[4]/span').click();
                 ##近七天的数据
                 # driver.find_element_by_xpath('//*[@id="filterApp"]/div[3]/div[2]/a[3]/span').click();
                 # time.sleep(2)
 
-                getNewList(realName)
+                # getNewList(realName)
 
-                ##爬取结束 窗口关闭
-                driver.close()
-                driver.switch_to.window(windows[1])
+                href = driver.find_element_by_xpath(
+                    '/html/body/div/div[2]/div[1]/div/div[1]/section[1]/div/div[1]/span[1]').parent.current_url
+                emotionType = driver.find_element_by_class_name('news-impact').text
+                title = driver.find_element_by_class_name('title').parent.title
+                resource = driver.find_element_by_xpath(
+                    '/html/body/div/div[2]/div[1]/div/div[1]/section[1]/div/div[1]/span[1]').text
+                sendDate = driver.find_element_by_xpath(
+                    '/html/body/div/div[2]/div[1]/div/div[1]/section[1]/div/div[1]/span[2]').text
+                localTime = time.strftime("%Y-%m-%d", time.localtime())
+                demo = driver.find_element_by_xpath(
+                    '/html/body/div/div[2]/div[1]/div/div[1]/section[1]/div/div[2]')
+                keywords = driver.find_element_by_xpath(
+                    '/html/body/div/div[2]/div[1]/div/div[1]/section[1]/div/div[2]').text
+
+                titles = title.split("-", 1)
+                resources = resource.split('： ', 1)
+                sendDates = sendDate.split('发表于 ', 1)
+                keywordst = keywords.split("#", 1)
+                title = titles[0]
+                if (len(resource) > 1):
+                    resource = resources[1]
+                if (len(sendDates) > 1):
+                    sendDate = sendDates[1]
+                if (len(keywordst) > 1):
+                    keywords = keywordst[1]
+                else:
+                    keywords = '无'
+                if (resource != '企查查'):
+                    driver.find_element_by_xpath(
+                        '/html/body/div/div[2]/div[1]/div/div[1]/section[1]/div/div[1]/span[1]/a').click()
+                    time.sleep(2)
+                    windows = driver.window_handles  ##在打开新页面的时候使用
+                    time.sleep(2)
+                    print('windows', windows)
+                    driver.switch_to.window(windows[2])  ##进入点击的那一页
+                    link = driver.find_element_by_class_name('link').text
+                else:
+                    link = href
+
+                worker = IdWorker(0, 0)
+                id = worker.get_id()
+                createBy = "admin"
+                createTime = datetime.datetime.now()
+                updateBy = "admin"
+                updateTime = datetime.datetime.now()
+                print('查询成功---', '--', realName, '--', emotionType, '--', type, '--', title, '--', keywords, '--',
+                      resource,
+                      '--',
+                      link,
+                      '--',
+                      sendDate, '--', localTime)
+
+                p = BrandNews(id=id,
+                              title=title,
+                              emotion_type=emotionType,
+                              keywords=keywords,
+                              send_date=sendDate,
+                              resource=resource,
+                              link=link,
+                              create_by=createBy,
+                              create_time=createTime,
+                              update_by=updateBy,
+                              update_time=updateTime,
+                              del_flag=0)
+                p.save(force_insert=True)
+                # 爬取结束 窗口关闭
+                if (resource != '企查查'):
+                    driver.close()
+                    driver.switch_to.window(windows[1])
                 driver.close()
                 driver.switch_to.window(windows[0])  # 跳到初始窗口
+                # print(company)
             if (page < pageCount):
                 for i in range(0, len(pageList)):
                     if pageList[i].find_elements_by_xpath('a')[0].text == ">":
                         pageList[i].find_elements_by_xpath('a')[0].click()
                         time.sleep(3)
                         print('寻找到下一页！')
+                        break
 
 
 def clickFindMore(list):
@@ -267,19 +348,21 @@ def getCompanyList(realName):
 
 def gotoLogin(qqNumber, qqPassword):
     print('开始登录！----登录前请先配置有绑定企查查的账号密码')
+    time.sleep(2)
     driver.find_element_by_xpath('//*[@class="navi-btn login-nav-btn"]/span').click()
     time.sleep(2)
 
     # 进入frame
-    driver.find_element_by_id('normalLogin').click()
+    driver.find_element_by_xpath('//*[@class="login-panel-head clearfix"]/div[2]/a').click()
+
     time.sleep(2)
 
-    username = driver.find_element_by_name('nameNormal')
+    username = driver.find_element_by_xpath('//*[@class="password-login_wrapper"]/form/div[1]/input')
     username.send_keys(qqNumber)
-    password = driver.find_element_by_name('pwdNormal')
+    password = driver.find_element_by_name('password')
     password.send_keys(qqPassword)
     time.sleep(2)
-    driver.find_element_by_class_name('login-btn').click()
+    driver.find_element_by_xpath('//*[@class="password-login_wrapper"]/form/div[4]/button').click()
     time.sleep(3)
     print('登录成功！')
     time.sleep(3)
@@ -315,9 +398,15 @@ def hkYz():
 def getData(dataList):
     print('进入搜索页面！');
     time.sleep(3)
-    driver.find_element_by_xpath('//input[@id="searchkey"]').click();
-    driver.find_element_by_xpath('//input[@id="searchkey"]').send_keys("北京三快科技有限公司");
-    driver.find_element_by_xpath('//*[@id="indexSearchForm"]/div[1]/span/input').click();
+    # driver.find_element_by_id('searchKey').click()
+    # driver.find_element_by_id('searchkey').send_keys("北京三快科技有限公司")
+    # driver.find_element_by_xpath('//input[@id="searchKey"]').click()
+    #
+    # driver.find_element_by_xpath('//*[@calss="app-home"]/section[1]/div/div/div/div[1]/div/div/input').click()
+    # driver.find_element_by_xpath('//*[@calss="search-area"]/div[1]/div[1]/div/input').send_keys("蜂蜜")
+    # driver.find_element_by_name('key').click()
+    # driver.find_element_by_class_name('key').send_keys("蜂蜜")
+    driver.find_element_by_class_name('input-group-btn').click()
 
     for i in dataList:
         realName = (str)(i);
@@ -325,11 +414,14 @@ def getData(dataList):
         driver.find_element_by_xpath('//*[@id="searchKey"]').clear();
         driver.find_element_by_xpath('//*[@id="searchKey"]').send_keys(realName);
         driver.find_element_by_xpath('/html/body/div[1]/div[1]/div/div/div/div/div/div/span/button').click();
+
         driver.find_element_by_xpath(
-            '/html/body/div[1]/div[2]/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/a[5]').click();
-        driver.find_element_by_xpath(
-            '/html/body/div[1]/div[2]/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/a[1]').click();
-        time.sleep(3)
+            '/html/body/div[1]/div[2]/div[1]/div[1]/div[1]/div[7]/a').click();
+        # driver.find_element_by_xpath(
+        #     '/html/body/div[1]/div[2]/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/a[5]').click();
+        # driver.find_element_by_xpath(
+        #     '/html/body/div[1]/div[2]/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/a[1]').click();
+        time.sleep(1)
         # //前往页面
         gotoIndex(realName)
 
@@ -361,7 +453,7 @@ def start():
         qqPassword = "Linux007"  ##qq密码
         init(qqNumber, qqPassword)
         ##遍历名称搜索
-        dataList = ['蜂之语', '万事吉', '碧于天'];
+        dataList = ['蜂蜜'];
         getData(dataList);
         print('爬取结束！')
     except:

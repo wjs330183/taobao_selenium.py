@@ -1,5 +1,21 @@
+import openpyxl
 from selenium import webdriver  # 用来驱动浏览器的
 import time
+
+
+
+
+def getExcelDetail():
+    readbook = openpyxl.load_workbook('C:\\Users\\administor\\Documents\\zb.xlsx')
+    # 名字的方式
+    sheetnames = readbook.get_sheet_names()  # 获取读文件中所有的sheet，通过名字的方式
+    ws = readbook.get_sheet_by_name(sheetnames[0])  # 获取第一个sheet内容
+    # 获取sheet的最大行数和列数
+    rows = ws.max_row
+    cols = ws.max_column + 1
+    for r in range(1, rows):
+        for c in range(1, cols):
+            print(ws.cell(r, c).value)
 
 '''
 ===============所有方法===================
